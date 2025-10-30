@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
 import AppLoader from "../components/AppLoader";
 import ScrollToTop from "../components/ScrollToTop";
+import CustomCursor from "../components/CustomCursor";
 import "./globals.css";
 
 const inter = Inter({
@@ -40,6 +41,7 @@ export default function RootLayout({
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
         <ScrollToTop />
         <AppLoader />
+        <CustomCursor />
         {children}
       </body>
     </html>

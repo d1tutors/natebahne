@@ -32,6 +32,34 @@ body {
   font-weight: 300;
 }
 
+/* Hide the default cursor on devices that support hover (avoid breaking touch) */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+}
+
+/* Custom cursor base styles */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 28px;
+  height: 28px;
+  margin-left: -14px; /* center on pointer */
+  margin-top: -14px;  /* center on pointer */
+  border-radius: 9999px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0; /* becomes 1 on first mousemove */
+  transition: opacity 120ms ease, transform 30ms linear, background-color 140ms ease;
+  will-change: transform, opacity;
+
+  /* JS sets background to solid white or black; default invisible fill */
+  background: transparent;
+  /* subtle ring will be set from JS based on contrast */
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-inter);
   font-weight: 700;

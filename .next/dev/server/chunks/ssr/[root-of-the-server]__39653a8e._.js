@@ -26,6 +26,13 @@ function AppLoader() {
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         let mounted = true;
         const run = async ()=>{
+            // Compute dynamic bezel: 10% of the smaller viewport dimension
+            const minDimension = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : 0;
+            const inset = minDimension * 0.10;
+            const targetTop = inset;
+            const targetLeft = inset;
+            const targetWidth = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "calc(100vw - 192px)";
+            const targetHeight = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "calc(100vh - 192px)";
             // Rotate a minimum of 2x: each rotate 0.5s + pause 0.5s
             let angle = 45;
             for(let i = 0; i < 2; i++){
@@ -39,13 +46,13 @@ function AppLoader() {
                 });
                 await new Promise((r)=>setTimeout(r, 500));
             }
-            // Final 45° rotation + scale to hero rectangle size simultaneously
+            // Final 45° rotation + scale to hero rectangle size simultaneously (dynamic inset)
             await controls.start({
                 rotate: 360,
-                top: 96,
-                left: 96,
-                width: "calc(100vw - 192px)",
-                height: "calc(100vh - 192px)",
+                top: targetTop,
+                left: targetLeft,
+                width: targetWidth,
+                height: targetHeight,
                 borderRadius: 40,
                 transition: {
                     duration: 0.6,
@@ -128,12 +135,12 @@ function AppLoader() {
             }
         }, void 0, false, {
             fileName: "[project]/src/components/AppLoader.tsx",
-            lineNumber: 67,
+            lineNumber: 74,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/AppLoader.tsx",
-        lineNumber: 66,
+        lineNumber: 73,
         columnNumber: 5
     }, this);
 }
@@ -171,97 +178,194 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 function CustomCursor() {
-    const [position, setPosition] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
-        x: 0,
-        y: 0
+    const cursorRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const mouseX = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(0);
+    const mouseY = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(0);
+    const rafId = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const debugRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])({
+        samples: 0,
+        valid: 0,
+        avgLum: 0
     });
-    const [cursorColor, setCursorColor] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("#F5F1E6"); // Default to light
-    const [isVisible, setIsVisible] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        const updateCursor = (e)=>{
-            setPosition({
-                x: e.clientX,
-                y: e.clientY
-            });
-            setIsVisible(true);
+    const cssBg = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])("#ffffff");
+    const frameCounter = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(0);
+    function parseCssColorToRgba(color) {
+        const ctx = document.createElement("canvas").getContext("2d");
+        if (!ctx) return null;
+        ctx.fillStyle = "#000";
+        ctx.fillStyle = color.trim();
+        const computed = ctx.fillStyle;
+        const m = computed.match(/rgba?\(([^)]+)\)/i);
+        if (!m) return null;
+        const parts = m[1].split(",").map((p)=>p.trim());
+        const r = Number(parts[0]);
+        const g = Number(parts[1]);
+        const b = Number(parts[2]);
+        const a = parts[3] !== undefined ? Number(parts[3]) : 1;
+        if ([
+            r,
+            g,
+            b
+        ].some((v)=>Number.isNaN(v)) || Number.isNaN(a)) return null;
+        return {
+            r,
+            g,
+            b,
+            a
         };
-        const handleMouseLeave = ()=>setIsVisible(false);
-        const handleMouseEnter = ()=>setIsVisible(true);
-        // Hide default cursor
-        document.body.style.cursor = "none";
-        document.addEventListener("mousemove", updateCursor);
-        document.addEventListener("mouseleave", handleMouseLeave);
-        document.addEventListener("mouseenter", handleMouseEnter);
-        // Detect if cursor is over light or dark elements
-        const checkColor = (e)=>{
-            const element = document.elementFromPoint(e.clientX, e.clientY);
-            if (element) {
-                // Walk up the DOM tree to find a non-transparent background
-                let currentElement = element;
-                let foundLuminance = 200; // Default to light background
-                while(currentElement){
-                    const style = window.getComputedStyle(currentElement);
-                    const bgColor = style.backgroundColor;
-                    // Parse rgb/rgba values - handle both formats
-                    const rgbMatch = bgColor.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
-                    if (rgbMatch && rgbMatch.length >= 4) {
-                        const r = parseInt(rgbMatch[1]);
-                        const g = parseInt(rgbMatch[2]);
-                        const b = parseInt(rgbMatch[3]);
-                        const luminance = r * 0.299 + g * 0.587 + b * 0.114;
-                        // If we find a background with good opacity, use it
-                        const alpha = bgColor.includes('rgba') ? parseFloat(bgColor.match(/rgba?\([\d.]+,\s*[\d.]+,\s*[\d.]+,\s*([\d.]+)/)?.[1] || '1') : 1;
-                        if (alpha > 0.5) {
-                            foundLuminance = luminance;
-                            break;
+    }
+    function relativeLuminance({ r, g, b }) {
+        const srgb = [
+            r,
+            g,
+            b
+        ].map((v)=>v / 255).map((c)=>c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4));
+        return 0.2126 * srgb[0] + 0.7152 * srgb[1] + 0.0722 * srgb[2];
+    }
+    function resolveEffectiveColorAtPoint(x, y) {
+        // Use elementsFromPoint to get stack; skip the cursor via pointer-events: none
+        const elements = document.elementsFromPoint(x, y);
+        // Try text color first where meaningful
+        for (const el of elements){
+            const style = getComputedStyle(el);
+            const col = style.color;
+            const parsedCol = parseCssColorToRgba(col);
+            if (parsedCol && el.innerText && el.innerText.trim().length > 0) {
+                return parsedCol;
+            }
+        }
+        // Then find first non-transparent background walking up each element's chain
+        const seen = new Set();
+        for (const el of elements){
+            let cur = el;
+            while(cur && !seen.has(cur)){
+                seen.add(cur);
+                const style = getComputedStyle(cur);
+                const bg = style.backgroundColor;
+                const parsedBg = parseCssColorToRgba(bg);
+                if (parsedBg && parsedBg.a > 0) return parsedBg;
+                cur = cur.parentElement;
+            }
+        }
+        // Fallback to CSS variable --background, then body/html
+        return parseCssColorToRgba(cssBg.current) || parseCssColorToRgba(getComputedStyle(document.body).backgroundColor) || parseCssColorToRgba(getComputedStyle(document.documentElement).backgroundColor);
+    }
+    function sampleAverageLuminance(x, y, radius) {
+        // Temporarily hide the cursor so hit-testing can "see" underneath
+        const cursorEl = cursorRef.current;
+        const prevVisibility = cursorEl ? cursorEl.style.visibility : "";
+        if (cursorEl) cursorEl.style.visibility = "hidden";
+        // Fixed multi-ring pattern: center + inner 8 + outer 8
+        const offsets = [
+            [
+                0,
+                0
+            ]
+        ];
+        const ringR1 = Math.max(2, Math.floor(radius * 0.5));
+        const ringR2 = Math.max(ringR1 + 1, Math.floor(radius * 0.9));
+        const dirs = 8;
+        for(let i = 0; i < dirs; i++){
+            const ang = i * 2 * Math.PI / dirs;
+            offsets.push([
+                Math.round(Math.cos(ang) * ringR1),
+                Math.round(Math.sin(ang) * ringR1)
+            ]);
+            offsets.push([
+                Math.round(Math.cos(ang) * ringR2),
+                Math.round(Math.sin(ang) * ringR2)
+            ]);
+        }
+        let totalLum = 0;
+        let count = 0;
+        let attempted = 0;
+        try {
+            for (const [dx, dy] of offsets){
+                const px = Math.max(0, Math.min(window.innerWidth - 1, x + dx));
+                const py = Math.max(0, Math.min(window.innerHeight - 1, y + dy));
+                attempted += 1;
+                const rgba = resolveEffectiveColorAtPoint(px, py);
+                if (!rgba) continue;
+                totalLum += relativeLuminance(rgba);
+                count += 1;
+                // Detailed per-sample logging on every 10th frame to avoid spam
+                if (("TURBOPACK compile-time value", "development") !== "production" && frameCounter.current % 10 === 0) {
+                    const els = document.elementsFromPoint(px, py);
+                    const top = els[0];
+                    const style = top ? getComputedStyle(top) : null;
+                    // eslint-disable-next-line no-console
+                    console.debug("[CustomCursor] sample", {
+                        px,
+                        py,
+                        tag: top?.tagName,
+                        class: top?.className,
+                        bg: style?.backgroundColor,
+                        color: style?.color,
+                        pickedLum: relativeLuminance(rgba).toFixed(3)
+                    });
+                }
+            }
+        } finally{
+            if (cursorEl) cursorEl.style.visibility = prevVisibility;
+        }
+        const avg = count === 0 ? 1 : totalLum / count;
+        debugRef.current = {
+            samples: attempted,
+            valid: count,
+            avgLum: avg
+        };
+        return avg;
+    }
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        // Resolve CSS variable --background once; this is the app's tan background
+        const rootStyle = getComputedStyle(document.documentElement);
+        const bgVar = rootStyle.getPropertyValue("--background").trim();
+        if (bgVar) cssBg.current = bgVar;
+        const handleMove = (e)=>{
+            mouseX.current = e.clientX;
+            mouseY.current = e.clientY;
+            if (cursorRef.current && cursorRef.current.style.opacity !== "1") {
+                cursorRef.current.style.opacity = "1";
+            }
+            if (rafId.current == null) {
+                rafId.current = requestAnimationFrame(()=>{
+                    if (cursorRef.current) {
+                        cursorRef.current.style.transform = `translate3d(${mouseX.current}px, ${mouseY.current}px, 0)`;
+                        const diameter = cursorRef.current.offsetWidth || 28;
+                        const radius = Math.round(diameter / 2);
+                        frameCounter.current += 1;
+                        const avgLum = sampleAverageLuminance(mouseX.current, mouseY.current, radius);
+                        const useBlack = avgLum > 0.5; // light background → black cursor
+                        cursorRef.current.style.background = useBlack ? "rgba(0,0,0,1)" : "rgba(255,255,255,1)";
+                        cursorRef.current.style.boxShadow = useBlack ? "0 0 0 1px rgba(0,0,0,0.2) inset" : "0 0 0 1px rgba(255,255,255,0.4) inset";
+                        // Debug output to help verify sampling and decision
+                        if ("TURBOPACK compile-time truthy", 1) {
+                            const dbg = debugRef.current;
+                            // Log once per frame; concise payload
+                            // eslint-disable-next-line no-console
+                            console.log("[CustomCursor] avgLum:", dbg.avgLum.toFixed(3), "samples:", dbg.samples, "valid:", dbg.valid, "choice:", useBlack ? "black" : "white");
                         }
                     }
-                    currentElement = currentElement.parentElement;
-                    // Safety: don't go beyond body
-                    if (currentElement === document.body) break;
-                }
-                // If background is dark (low luminance), cursor should be light (tan)
-                // If background is light (high luminance), cursor should be dark (green)
-                setCursorColor(foundLuminance < 128 ? "#F5F1E6" : "#06402A");
+                    rafId.current = null;
+                });
             }
         };
-        const handleMouseMoveWithColor = (e)=>{
-            updateCursor(e);
-            checkColor(e);
-        };
-        document.addEventListener("mousemove", handleMouseMoveWithColor);
+        document.addEventListener("pointermove", handleMove, {
+            passive: true
+        });
         return ()=>{
-            document.body.style.cursor = "";
-            document.removeEventListener("mousemove", updateCursor);
-            document.removeEventListener("mouseleave", handleMouseLeave);
-            document.removeEventListener("mouseenter", handleMouseEnter);
-            document.removeEventListener("mousemove", handleMouseMoveWithColor);
+            document.removeEventListener("pointermove", handleMove);
+            if (rafId.current != null) cancelAnimationFrame(rafId.current);
         };
     }, []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "fixed pointer-events-none z-[9999] transition-all duration-75 ease-linear",
-        style: {
-            left: `${position.x}px`,
-            top: `${position.y}px`,
-            transform: "translate(-50%, -50%)",
-            opacity: isVisible ? 1 : 0
-        },
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "w-8 h-8 rounded-full border-2 border-solid",
-            style: {
-                backgroundColor: cursorColor,
-                borderColor: cursorColor,
-                opacity: 0.8
-            }
-        }, void 0, false, {
-            fileName: "[project]/src/components/CustomCursor.tsx",
-            lineNumber: 92,
-            columnNumber: 7
-        }, this)
+        ref: cursorRef,
+        "aria-hidden": true,
+        className: "custom-cursor"
     }, void 0, false, {
         fileName: "[project]/src/components/CustomCursor.tsx",
-        lineNumber: 83,
-        columnNumber: 5
+        lineNumber: 167,
+        columnNumber: 10
     }, this);
 }
 }),

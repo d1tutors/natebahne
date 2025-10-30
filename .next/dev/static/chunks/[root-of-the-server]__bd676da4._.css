@@ -138,7 +138,6 @@
       --tw-skew-x: initial;
       --tw-skew-y: initial;
       --tw-space-y-reverse: 0;
-      --tw-border-style: solid;
       --tw-leading: initial;
       --tw-font-weight: initial;
       --tw-blur: initial;
@@ -161,7 +160,6 @@
 @layer theme {
   :root, :host {
     --spacing: .25rem;
-    --container-6xl: 72rem;
     --text-lg: 1.125rem;
     --text-lg--line-height: calc(1.75 / 1.125);
     --text-xl: 1.25rem;
@@ -541,10 +539,6 @@
     margin-top: calc(var(--spacing) * 4);
   }
 
-  .mt-24 {
-    margin-top: calc(var(--spacing) * 24);
-  }
-
   .mt-40 {
     margin-top: calc(var(--spacing) * 40);
   }
@@ -555,10 +549,6 @@
 
   .flex {
     display: flex;
-  }
-
-  .grid {
-    display: grid;
   }
 
   .hidden {
@@ -577,14 +567,6 @@
     height: 100vh;
   }
 
-  .min-h-\[60vh\] {
-    min-height: 60vh;
-  }
-
-  .min-h-\[120vh\] {
-    min-height: 120vh;
-  }
-
   .min-h-screen {
     min-height: 100vh;
   }
@@ -593,16 +575,8 @@
     width: 100%;
   }
 
-  .max-w-6xl {
-    max-width: var(--container-6xl);
-  }
-
   .max-w-\[96vw\] {
     max-width: 96vw;
-  }
-
-  .max-w-\[98vw\] {
-    max-width: 98vw;
   }
 
   .max-w-prose {
@@ -617,20 +591,12 @@
     resize: both;
   }
 
-  .grid-cols-1 {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
   .flex-col {
     flex-direction: column;
   }
 
   .items-center {
     align-items: center;
-  }
-
-  .items-start {
-    align-items: flex-start;
   }
 
   .justify-center {
@@ -655,21 +621,12 @@
     border-radius: var(--radius-lg);
   }
 
-  .border {
-    border-style: var(--tw-border-style);
-    border-width: 1px;
-  }
-
   .bg-\[\#F5F1E6\] {
     background-color: #f5f1e6;
   }
 
   .object-cover {
     object-fit: cover;
-  }
-
-  .px-2 {
-    padding-inline: calc(var(--spacing) * 2);
   }
 
   .px-4 {
@@ -723,14 +680,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  .opacity-70 {
-    opacity: .7;
-  }
-
-  .opacity-80 {
-    opacity: .8;
-  }
-
   .opacity-90 {
     opacity: .9;
   }
@@ -770,20 +719,8 @@
   }
 
   @media (min-width: 48rem) {
-    .md\:grid-cols-2 {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (min-width: 48rem) {
     .md\:flex-row {
       flex-direction: row;
-    }
-  }
-
-  @media (min-width: 48rem) {
-    .md\:px-4 {
-      padding-inline: calc(var(--spacing) * 4);
     }
   }
 
@@ -827,12 +764,6 @@
   }
 
   @media (min-width: 64rem) {
-    .lg\:px-6 {
-      padding-inline: calc(var(--spacing) * 6);
-    }
-  }
-
-  @media (min-width: 64rem) {
     .lg\:px-8 {
       padding-inline: calc(var(--spacing) * 8);
     }
@@ -870,6 +801,29 @@ body {
   font-weight: 300;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+}
+
+.custom-cursor {
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  will-change: transform, opacity;
+  background: none;
+  border-radius: 9999px;
+  width: 28px;
+  height: 28px;
+  margin-top: -14px;
+  margin-left: -14px;
+  transition: opacity .12s, transform 30ms linear, background-color .14s;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-inter);
   font-weight: 700;
@@ -904,12 +858,6 @@ h1, h2, h3, h4, h5, h6 {
   syntax: "*";
   inherits: false;
   initial-value: 0;
-}
-
-@property --tw-border-style {
-  syntax: "*";
-  inherits: false;
-  initial-value: solid;
 }
 
 @property --tw-leading {
