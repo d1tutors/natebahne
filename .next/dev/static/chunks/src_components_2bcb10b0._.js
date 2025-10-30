@@ -10,10 +10,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$scroll$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/value/use-scroll.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$value$2f$use$2d$transform$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/framer-motion/dist/es/value/use-transform.mjs [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -70,7 +72,7 @@ function SectionTwo() {
                                     children: "Board Games"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/SectionTwo.tsx",
-                                    lineNumber: 24,
+                                    lineNumber: 25,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -78,36 +80,39 @@ function SectionTwo() {
                                     children: "Together with my brother, I’ve helped bring five different games to life — from Trademarked, our first board game, to Grid, a fully 3D-printed strategy game. Turning creative ideas into reality has always been one of my biggest passions."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/SectionTwo.tsx",
-                                    lineNumber: 25,
+                                    lineNumber: 26,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/SectionTwo.tsx",
-                            lineNumber: 23,
+                            lineNumber: 24,
                             columnNumber: 11
                         }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1",
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            href: "/boardgames",
+                            className: "relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1 block",
+                            "data-cursor-view": true,
+                            "aria-label": "View Board Games",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                 src: "/placeholder.svg",
-                                alt: "Placeholder",
+                                alt: "Board Games",
                                 fill: true,
                                 className: "object-cover rounded-lg opacity-90"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/SectionTwo.tsx",
-                                lineNumber: 32,
+                                lineNumber: 33,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/SectionTwo.tsx",
-                            lineNumber: 31,
+                            lineNumber: 32,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/SectionTwo.tsx",
-                    lineNumber: 22,
+                    lineNumber: 23,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -121,7 +126,7 @@ function SectionTwo() {
                                     children: "2x Regional Champion"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/SectionTwo.tsx",
-                                    lineNumber: 38,
+                                    lineNumber: 39,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -129,36 +134,39 @@ function SectionTwo() {
                                     children: "I've competed in multiple MESA competitions, earning first place at regionals in the MESA Machine event in both 2023 and 2024, and second place in the Moon Base competition in 2024."
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/SectionTwo.tsx",
-                                    lineNumber: 39,
+                                    lineNumber: 40,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/SectionTwo.tsx",
-                            lineNumber: 37,
+                            lineNumber: 38,
                             columnNumber: 11
                         }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1",
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            href: "/mesa",
+                            className: "relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1 block",
+                            "data-cursor-view": true,
+                            "aria-label": "View MESA achievements",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                 src: "/placeholder.svg",
-                                alt: "Placeholder",
+                                alt: "2x Regional Champion",
                                 fill: true,
                                 className: "object-cover rounded-lg opacity-90"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/SectionTwo.tsx",
-                                lineNumber: 45,
+                                lineNumber: 46,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/SectionTwo.tsx",
-                            lineNumber: 44,
+                            lineNumber: 45,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/SectionTwo.tsx",
-                    lineNumber: 36,
+                    lineNumber: 37,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -172,7 +180,7 @@ function SectionTwo() {
                                     children: "In the works"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/SectionTwo.tsx",
-                                    lineNumber: 52,
+                                    lineNumber: 53,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -180,47 +188,50 @@ function SectionTwo() {
                                     children: "Whoscanned is a passion project my brother and I have been developing, inspired by a unique technology we discovered while experimenting with QR codes. Its goal is simple — to provide insights and statistics that answer the question: who scanned?"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/SectionTwo.tsx",
-                                    lineNumber: 53,
+                                    lineNumber: 54,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/SectionTwo.tsx",
-                            lineNumber: 51,
+                            lineNumber: 52,
                             columnNumber: 11
                         }, this),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1",
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            href: "/whoscanned",
+                            className: "relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1 block",
+                            "data-cursor-view": true,
+                            "aria-label": "View Whoscanned project",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                 src: "/placeholder.svg",
-                                alt: "Placeholder",
+                                alt: "In the works - Whoscanned",
                                 fill: true,
                                 className: "object-cover rounded-lg opacity-90"
                             }, void 0, false, {
                                 fileName: "[project]/src/components/SectionTwo.tsx",
-                                lineNumber: 60,
+                                lineNumber: 61,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/SectionTwo.tsx",
-                            lineNumber: 59,
+                            lineNumber: 60,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/SectionTwo.tsx",
-                    lineNumber: 50,
+                    lineNumber: 51,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/SectionTwo.tsx",
-            lineNumber: 20,
+            lineNumber: 21,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/SectionTwo.tsx",
-        lineNumber: 18,
+        lineNumber: 19,
         columnNumber: 5
     }, this);
 }

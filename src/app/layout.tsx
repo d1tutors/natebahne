@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Poppins } from "next/font/google";
-import AppLoader from "../components/AppLoader";
+import LoaderGate from "../components/LoaderGate";
 import ScrollToTop from "../components/ScrollToTop";
+import ColorUnderCursorLogger from "../components/ColorUnderCursorLogger";
 import CustomCursor from "../components/CustomCursor";
 import "./globals.css";
 
@@ -40,7 +41,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
         <ScrollToTop />
-        <AppLoader />
+        <LoaderGate />
+        <ColorUnderCursorLogger />
         <CustomCursor />
         {children}
       </body>

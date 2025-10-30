@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useRef } from "react";
 
 export default function SectionTwo() {
@@ -28,9 +29,9 @@ export default function SectionTwo() {
               creative ideas into reality has always been one of my biggest passions.
             </p>
           </div>
-          <div className="relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1">
-            <Image src="/placeholder.svg" alt="Placeholder" fill className="object-cover rounded-lg opacity-90" />
-          </div>
+          <Link href="/boardgames" className="relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1 block" data-cursor-view aria-label="View Board Games">
+            <Image src="/placeholder.svg" alt="Board Games" fill className="object-cover rounded-lg opacity-90" />
+          </Link>
         </div>
         {/* Section 2 */}
         <div className="mt-40 flex flex-col md:flex-row gap-12 items-center">
@@ -41,9 +42,9 @@ export default function SectionTwo() {
               Machine event in both 2023 and 2024, and second place in the Moon Base competition in 2024.
             </p>
           </div>
-          <div className="relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1">
-            <Image src="/placeholder.svg" alt="Placeholder" fill className="object-cover rounded-lg opacity-90" />
-          </div>
+          <Link href="/mesa" className="relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1 block" data-cursor-view aria-label="View MESA achievements">
+            <Image src="/placeholder.svg" alt="2x Regional Champion" fill className="object-cover rounded-lg opacity-90" />
+          </Link>
         </div>
 
         {/* In the works */}
@@ -56,9 +57,9 @@ export default function SectionTwo() {
               insights and statistics that answer the question: who scanned?
             </p>
           </div>
-          <div className="relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1">
-            <Image src="/placeholder.svg" alt="Placeholder" fill className="object-cover rounded-lg opacity-90" />
-          </div>
+          <Link href="/whoscanned" className="relative w-full h-72 md:h-96 order-1 md:order-2 md:flex-1 block" data-cursor-view aria-label="View Whoscanned project">
+            <Image src="/placeholder.svg" alt="In the works - Whoscanned" fill className="object-cover rounded-lg opacity-90" />
+          </Link>
         </div>
       </div>
 

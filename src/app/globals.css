@@ -30,37 +30,29 @@ body {
   color: var(--foreground);
   font-family: var(--font-poppins);
   font-weight: 300;
+  cursor: none;
 }
 
-/* Hide the default cursor on devices that support hover (avoid breaking touch) */
-@media (hover: hover) and (pointer: fine) {
-  body {
-    cursor: none;
-  }
+/* Ensure the native cursor stays hidden over interactive image areas */
+[data-cursor-view] {
+  cursor: none !important;
+}
+[data-cursor-view] * {
+  cursor: none !important;
 }
 
-/* Custom cursor base styles */
-.custom-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 28px;
-  height: 28px;
-  margin-left: -14px; /* center on pointer */
-  margin-top: -14px;  /* center on pointer */
-  border-radius: 9999px;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0; /* becomes 1 on first mousemove */
-  transition: opacity 120ms ease, transform 30ms linear, background-color 140ms ease;
-  will-change: transform, opacity;
-
-  /* JS sets background to solid white or black; default invisible fill */
-  background: transparent;
-  /* subtle ring will be set from JS based on contrast */
+/* Simple page fade-in utility */
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.page-fade-in {
+  opacity: 0;
+  animation: pageFadeIn 600ms ease forwards;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-inter);
   font-weight: 700;
 }
+

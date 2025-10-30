@@ -239,29 +239,81 @@ function CustomCursor() {
     const cssBg = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])("#ffffff");
     const frameCounter = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(0);
     function parseCssColorToRgba(color) {
+        const input = (color || "").trim();
+        if (!input) return null;
+        // Named transparent
+        if (input.toLowerCase() === "transparent") return {
+            r: 0,
+            g: 0,
+            b: 0,
+            a: 0
+        };
+        // rgb/rgba with commas or spaces
+        let m = input.match(/rgba?\(([^)]+)\)/i);
+        if (m) {
+            const body = m[1].replace(/\//g, " ").trim();
+            const parts = body.split(/[\s,]+/).map((p)=>p.trim());
+            const r = Number(parts[0]);
+            const g = Number(parts[1]);
+            const b = Number(parts[2]);
+            const a = parts[3] !== undefined ? Number(parts[3]) : 1;
+            if ([
+                r,
+                g,
+                b
+            ].some((v)=>Number.isNaN(v)) || Number.isNaN(a)) return null;
+            return {
+                r,
+                g,
+                b,
+                a
+            };
+        }
+        // Hex #rgb or #rrggbb
+        if (/^#([0-9a-f]{3}|[0-9a-f]{6})$/i.test(input)) {
+            let hex = input.slice(1);
+            if (hex.length === 3) hex = hex.split("").map((c)=>c + c).join("");
+            const r = parseInt(hex.slice(0, 2), 16);
+            const g = parseInt(hex.slice(2, 4), 16);
+            const b = parseInt(hex.slice(4, 6), 16);
+            return {
+                r,
+                g,
+                b,
+                a: 1
+            };
+        }
+        // Canvas normalization fallback for named colors, etc.
         const ctx = document.createElement("canvas").getContext("2d");
         if (!ctx) return null;
-        ctx.fillStyle = "#000";
-        ctx.fillStyle = color.trim();
-        const computed = ctx.fillStyle;
-        const m = computed.match(/rgba?\(([^)]+)\)/i);
-        if (!m) return null;
-        const parts = m[1].split(",").map((p)=>p.trim());
-        const r = Number(parts[0]);
-        const g = Number(parts[1]);
-        const b = Number(parts[2]);
-        const a = parts[3] !== undefined ? Number(parts[3]) : 1;
-        if ([
-            r,
-            g,
-            b
-        ].some((v)=>Number.isNaN(v)) || Number.isNaN(a)) return null;
-        return {
-            r,
-            g,
-            b,
-            a
-        };
+        try {
+            ctx.fillStyle = input;
+            const computed = String(ctx.fillStyle);
+            m = computed.match(/rgba?\(([^)]+)\)/i);
+            if (!m) return null;
+            const parts = m[1].split(",").map((p)=>p.trim());
+            const r = Number(parts[0]);
+            const g = Number(parts[1]);
+            const b = Number(parts[2]);
+            const a = parts[3] !== undefined ? Number(parts[3]) : 1;
+            if ([
+                r,
+                g,
+                b
+            ].some((v)=>Number.isNaN(v)) || Number.isNaN(a)) return null;
+            return {
+                r,
+                g,
+                b,
+                a
+            };
+        } catch (err) {
+            if ("TURBOPACK compile-time truthy", 1) {
+                // eslint-disable-next-line no-console
+                console.warn("[CustomCursor] parse fail:", input, err);
+            }
+            return null;
+        }
     }
     function relativeLuminance({ r, g, b }) {
         const srgb = [
@@ -274,12 +326,20 @@ function CustomCursor() {
     function resolveEffectiveColorAtPoint(x, y) {
         // Use elementsFromPoint to get stack; skip the cursor via pointer-events: none
         const elements = document.elementsFromPoint(x, y);
+        if ("TURBOPACK compile-time truthy", 1) {
+            // eslint-disable-next-line no-console
+            console.debug("[CustomCursor] elementsFromPoint", x, y, elements.map((e)=>e.tagName + "#" + e.id + "." + e.className).slice(0, 5));
+        }
         // Try text color first where meaningful
         for (const el of elements){
             const style = getComputedStyle(el);
             const col = style.color;
             const parsedCol = parseCssColorToRgba(col);
             if (parsedCol && el.innerText && el.innerText.trim().length > 0) {
+                if ("TURBOPACK compile-time truthy", 1) {
+                    // eslint-disable-next-line no-console
+                    console.debug("[CustomCursor] picked text color", col, parsedCol, "from", el.tagName);
+                }
                 return parsedCol;
             }
         }
@@ -292,12 +352,35 @@ function CustomCursor() {
                 const style = getComputedStyle(cur);
                 const bg = style.backgroundColor;
                 const parsedBg = parseCssColorToRgba(bg);
-                if (parsedBg && parsedBg.a > 0) return parsedBg;
+                if (parsedBg && parsedBg.a > 0) {
+                    if ("TURBOPACK compile-time truthy", 1) {
+                        // eslint-disable-next-line no-console
+                        console.debug("[CustomCursor] picked bg", bg, parsedBg, "from", cur.tagName, cur.className);
+                    }
+                    return parsedBg;
+                }
                 cur = cur.parentElement;
             }
         }
         // Fallback to CSS variable --background, then body/html
-        return parseCssColorToRgba(cssBg.current) || parseCssColorToRgba(getComputedStyle(document.body).backgroundColor) || parseCssColorToRgba(getComputedStyle(document.documentElement).backgroundColor);
+        const varBg = parseCssColorToRgba(cssBg.current);
+        const bodyBg = parseCssColorToRgba(getComputedStyle(document.body).backgroundColor);
+        const htmlBg = parseCssColorToRgba(getComputedStyle(document.documentElement).backgroundColor);
+        const fallback = varBg || bodyBg || htmlBg || {
+            r: 255,
+            g: 255,
+            b: 255,
+            a: 1
+        };
+        if ("TURBOPACK compile-time truthy", 1) {
+            // eslint-disable-next-line no-console
+            console.debug("[CustomCursor] fallback color", fallback, {
+                varBg: cssBg.current,
+                bodyBg: getComputedStyle(document.body).backgroundColor,
+                htmlBg: getComputedStyle(document.documentElement).backgroundColor
+            });
+        }
+        return fallback;
     }
     function sampleAverageLuminance(x, y, radius) {
         // Temporarily hide the cursor so hit-testing can "see" underneath
@@ -334,8 +417,15 @@ function CustomCursor() {
                 const py = Math.max(0, Math.min(window.innerHeight - 1, y + dy));
                 attempted += 1;
                 const rgba = resolveEffectiveColorAtPoint(px, py);
-                if (!rgba) continue;
-                totalLum += relativeLuminance(rgba);
+                if (!rgba) {
+                    if ("TURBOPACK compile-time truthy", 1) {
+                        // eslint-disable-next-line no-console
+                        console.warn("[CustomCursor] null rgba at", px, py);
+                    }
+                    continue;
+                }
+                const lum = relativeLuminance(rgba);
+                totalLum += lum;
                 count += 1;
                 // Detailed per-sample logging on every 10th frame to avoid spam
                 if (("TURBOPACK compile-time value", "development") !== "production" && frameCounter.current % 10 === 0) {
@@ -350,7 +440,8 @@ function CustomCursor() {
                         class: top?.className,
                         bg: style?.backgroundColor,
                         color: style?.color,
-                        pickedLum: relativeLuminance(rgba).toFixed(3)
+                        pickedLum: lum.toFixed(3),
+                        rgba
                     });
                 }
             }
@@ -421,7 +512,7 @@ function CustomCursor() {
         className: "custom-cursor"
     }, void 0, false, {
         fileName: "[project]/src/components/CustomCursor.tsx",
-        lineNumber: 167,
+        lineNumber: 225,
         columnNumber: 10
     }, this);
 }
