@@ -24,6 +24,13 @@ function AppLoader() {
             let mounted = true;
             const run = {
                 "AppLoader.useEffect.run": async ()=>{
+                    // Compute dynamic bezel: 10% of the smaller viewport dimension
+                    const minDimension = ("TURBOPACK compile-time truthy", 1) ? Math.min(window.innerWidth, window.innerHeight) : "TURBOPACK unreachable";
+                    const inset = minDimension * 0.10;
+                    const targetTop = inset;
+                    const targetLeft = inset;
+                    const targetWidth = ("TURBOPACK compile-time truthy", 1) ? window.innerWidth - inset * 2 : "TURBOPACK unreachable";
+                    const targetHeight = ("TURBOPACK compile-time truthy", 1) ? window.innerHeight - inset * 2 : "TURBOPACK unreachable";
                     // Rotate a minimum of 2x: each rotate 0.5s + pause 0.5s
                     let angle = 45;
                     for(let i = 0; i < 2; i++){
@@ -39,13 +46,13 @@ function AppLoader() {
                             "AppLoader.useEffect.run": (r)=>setTimeout(r, 500)
                         }["AppLoader.useEffect.run"]);
                     }
-                    // Final 45° rotation + scale to hero rectangle size simultaneously
+                    // Final 45° rotation + scale to hero rectangle size simultaneously (dynamic inset)
                     await controls.start({
                         rotate: 360,
-                        top: 96,
-                        left: 96,
-                        width: "calc(100vw - 192px)",
-                        height: "calc(100vh - 192px)",
+                        top: targetTop,
+                        left: targetLeft,
+                        width: targetWidth,
+                        height: targetHeight,
                         borderRadius: 40,
                         transition: {
                             duration: 0.6,
@@ -134,12 +141,12 @@ function AppLoader() {
             }
         }, void 0, false, {
             fileName: "[project]/src/components/AppLoader.tsx",
-            lineNumber: 67,
+            lineNumber: 74,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/AppLoader.tsx",
-        lineNumber: 66,
+        lineNumber: 73,
         columnNumber: 5
     }, this);
 }

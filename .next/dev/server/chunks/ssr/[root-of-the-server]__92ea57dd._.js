@@ -26,6 +26,13 @@ function AppLoader() {
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         let mounted = true;
         const run = async ()=>{
+            // Compute dynamic bezel: 10% of the smaller viewport dimension
+            const minDimension = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : 0;
+            const inset = minDimension * 0.10;
+            const targetTop = inset;
+            const targetLeft = inset;
+            const targetWidth = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "calc(100vw - 192px)";
+            const targetHeight = ("TURBOPACK compile-time falsy", 0) ? "TURBOPACK unreachable" : "calc(100vh - 192px)";
             // Rotate a minimum of 2x: each rotate 0.5s + pause 0.5s
             let angle = 45;
             for(let i = 0; i < 2; i++){
@@ -39,13 +46,13 @@ function AppLoader() {
                 });
                 await new Promise((r)=>setTimeout(r, 500));
             }
-            // Final 45° rotation + scale to hero rectangle size simultaneously
+            // Final 45° rotation + scale to hero rectangle size simultaneously (dynamic inset)
             await controls.start({
                 rotate: 360,
-                top: 96,
-                left: 96,
-                width: "calc(100vw - 192px)",
-                height: "calc(100vh - 192px)",
+                top: targetTop,
+                left: targetLeft,
+                width: targetWidth,
+                height: targetHeight,
                 borderRadius: 40,
                 transition: {
                     duration: 0.6,
@@ -128,12 +135,12 @@ function AppLoader() {
             }
         }, void 0, false, {
             fileName: "[project]/src/components/AppLoader.tsx",
-            lineNumber: 67,
+            lineNumber: 74,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/AppLoader.tsx",
-        lineNumber: 66,
+        lineNumber: 73,
         columnNumber: 5
     }, this);
 }

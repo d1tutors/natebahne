@@ -10,6 +10,13 @@ export default function AppLoader() {
   useEffect(() => {
     let mounted = true;
     const run = async () => {
+      // Compute dynamic bezel: 10% of the smaller viewport dimension
+      const minDimension = typeof window !== "undefined" ? Math.min(window.innerWidth, window.innerHeight) : 0;
+      const inset = minDimension * 0.10;
+      const targetTop = inset;
+      const targetLeft = inset;
+      const targetWidth = typeof window !== "undefined" ? window.innerWidth - inset * 2 : "calc(100vw - 192px)";
+      const targetHeight = typeof window !== "undefined" ? window.innerHeight - inset * 2 : "calc(100vh - 192px)";
       // Rotate a minimum of 2x: each rotate 0.5s + pause 0.5s
       let angle = 45;
       for (let i = 0; i < 2; i++) {
@@ -18,13 +25,13 @@ export default function AppLoader() {
         await new Promise((r) => setTimeout(r, 500));
       }
 
-      // Final 45° rotation + scale to hero rectangle size simultaneously
+      // Final 45° rotation + scale to hero rectangle size simultaneously (dynamic inset)
       await controls.start({
         rotate: 360,
-        top: 96,
-        left: 96,
-        width: "calc(100vw - 192px)",
-        height: "calc(100vh - 192px)",
+        top: targetTop,
+        left: targetLeft,
+        width: targetWidth as any,
+        height: targetHeight as any,
         borderRadius: 40,
         transition: { 
           duration: 0.6, 
