@@ -1,7 +1,4 @@
 {
-  "/boardgames/page": "app/boardgames/page.js",
-  "/cool-stuff/page": "app/cool-stuff/page.js",
   "/my-projects/page": "app/my-projects/page.js",
-  "/page": "app/page.js",
-  "/whoscanned/page": "app/whoscanned/page.js"
+  "/page": "app/page.js"
 }

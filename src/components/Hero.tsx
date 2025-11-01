@@ -151,7 +151,7 @@ export default function Hero() {
             >
               <div style={{ width: textLayoutWidth ?? 'auto', maxWidth: '100%' }}>
                 <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold">Hey, I’m Nate.</h1>
-                <p className="mt-4 text-xl md:text-2xl opacity-90">And I make stuff.</p>
+                <p className="mt-4 text-3xl md:text-3xl opacity-90">I make stuff.</p>
               </div>
             </motion.div>
 

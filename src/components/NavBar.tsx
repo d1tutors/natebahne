@@ -329,9 +329,10 @@ export default function NavBar() {
         <Link
           href="/"
           onClick={handleScrollToTop}
-          className="font-bold pl-6 md:pl-8 hover:opacity-70 transition-opacity duration-200"
+          className="pl-6 md:pl-8 hover:opacity-70 transition-opacity duration-200"
           style={{ 
-            fontFamily: "var(--font-inter)",
+            fontFamily: "var(--font-poppins)",
+            fontWeight: 500,
             color: textColor,
             transition: "color 300ms ease, opacity 200ms ease"
           }}
@@ -346,6 +347,7 @@ export default function NavBar() {
             className="hover:opacity-70 transition-opacity duration-200"
             style={{ 
               fontFamily: "var(--font-poppins)",
+              fontWeight: 500,
               color: textColor,
               transition: "color 300ms ease, opacity 200ms ease"
             }}
@@ -357,6 +359,7 @@ export default function NavBar() {
             className="hover:opacity-70 transition-opacity duration-200"
             style={{ 
               fontFamily: "var(--font-poppins)",
+              fontWeight: 500,
               color: textColor,
               transition: "color 300ms ease, opacity 200ms ease"
             }}
