@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Inter, Poppins } from "next/font/google";
 import LoaderGate from "../components/LoaderGate";
 import ScrollToTop from "../components/ScrollToTop";
 import ColorUnderCursorLogger from "../components/ColorUnderCursorLogger";
 import CustomCursor from "../components/CustomCursor";
+import NavBar from "../components/NavBar";
 import "./globals.css";
 
 const inter = Inter({
@@ -40,10 +42,35 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${poppins.variable} antialiased`}>
+        {/* Critical: Scroll to top IMMEDIATELY before React renders to prevent components from reading wrong scroll position */}
+        <Script
+          id="scroll-to-top-init"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                // Disable scroll restoration
+                if ('scrollRestoration' in history) {
+                  history.scrollRestoration = 'manual';
+                }
+                // Scroll to top immediately - this runs before React hydration
+                if (typeof window !== 'undefined') {
+                  window.scrollTo(0, 0);
+                  if (document.documentElement) {
+                    document.documentElement.scrollTop = 0;
+                    document.documentElement.style.background = '#F5F1E6';
+                  }
+                  if (document.body) document.body.scrollTop = 0;
+                }
+              })();
+            `,
+          }}
+        />
         <ScrollToTop />
         <LoaderGate />
         <ColorUnderCursorLogger />
         <CustomCursor />
+        <NavBar />
         {children}
       </body>
     </html>

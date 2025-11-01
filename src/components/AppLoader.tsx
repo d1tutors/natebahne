@@ -10,6 +10,25 @@ export default function AppLoader() {
   useEffect(() => {
     let mounted = true;
     const run = async () => {
+      // Check if we should skip the loader animation
+      const shouldSkip = typeof window !== "undefined" && sessionStorage.getItem("skip-loader") === "true";
+      
+      if (shouldSkip) {
+        // Clear the flag
+        sessionStorage.removeItem("skip-loader");
+        // Immediately trigger completion without animation
+        if (mounted) {
+          if (typeof window !== "undefined") {
+            (window as any).__APP_LOADER_DONE__ = true;
+          }
+          if (typeof document !== "undefined") {
+            document.dispatchEvent(new CustomEvent("app-loader-complete"));
+          }
+          setVisible(false);
+        }
+        return;
+      }
+
       // Compute dynamic bezel: 10% of the smaller viewport dimension
       const minDimension = typeof window !== "undefined" ? Math.min(window.innerWidth, window.innerHeight) : 0;
       const inset = minDimension * 0.10;

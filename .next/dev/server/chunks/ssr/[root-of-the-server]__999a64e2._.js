@@ -195,15 +195,42 @@ __turbopack_context__.s([
     ()=>ScrollToTop
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
 "use client";
 ;
+;
 function ScrollToTop() {
+    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["usePathname"])();
+    // Force scroll to top with multiple attempts to ensure it works
+    // Also triggers scroll events so components that listen to scroll will update
+    const forceScrollToTop = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
+        if ("TURBOPACK compile-time truthy", 1) return;
+        //TURBOPACK unreachable
+        ;
+        // Use multiple methods to ensure scroll happens AND trigger scroll events
+        const scroll = undefined;
+    }, []);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         if ("TURBOPACK compile-time truthy", 1) return;
         //TURBOPACK unreachable
         ;
         const handleBeforeUnload = undefined;
-    }, []);
+        // Handle pages loaded from back/forward cache
+        const handlePageShow = undefined;
+    }, [
+        forceScrollToTop
+    ]);
+    // Scroll to top whenever the pathname changes (including back/forward navigation)
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if ("TURBOPACK compile-time truthy", 1) return;
+        //TURBOPACK unreachable
+        ;
+        // Also handle popstate events (back/forward button)
+        const handlePopState = undefined;
+    }, [
+        pathname,
+        forceScrollToTop
+    ]);
     return null;
 }
 }),
@@ -470,8 +497,19 @@ function CustomCursor() {
     });
     const [isLightBg, setIsLightBg] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [mode, setMode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])("dot");
+    const [isClicked, setIsClicked] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [isMobile, setIsMobile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true); // Default to true to prevent flash on mobile
     const rafRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const needsEvalRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(false);
+    // Detect if device is mobile/touch-only
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        // Check if device supports touch and doesn't have a fine pointer (mouse)
+        const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+        const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+        const hasCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+        // Only show cursor if device has fine pointer (mouse) and is not primarily touch
+        setIsMobile(hasCoarsePointer || hasTouch && !hasFinePointer);
+    }, []);
     // On route change, reset back to dot mode to avoid being stuck in pill
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         setMode("dot");
@@ -480,12 +518,18 @@ function CustomCursor() {
     ]);
     // On route change, immediately recompute background brightness at current pointer
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        if (isMobile) return;
         const hex = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ColorUnderCursorLogger$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["resolveEffectiveBackgroundAtPoint"])(pos.x, pos.y);
         if (hex) setIsLightBg(isCloserToWhite(hex));
     }, [
-        pathname
+        pathname,
+        isMobile,
+        pos.x,
+        pos.y
     ]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        // Don't attach mouse listeners on mobile devices
+        if (isMobile) return;
         const onMove = (e)=>{
             setPos({
                 x: e.clientX,
@@ -502,9 +546,20 @@ function CustomCursor() {
                 });
             }
         };
+        const onMouseDown = ()=>setIsClicked(true);
+        const onMouseUp = ()=>setIsClicked(false);
         window.addEventListener("mousemove", onMove, {
             passive: true
         });
+        window.addEventListener("mousedown", onMouseDown);
+        window.addEventListener("mouseup", onMouseUp);
+        // Poll background color under cursor every 250ms
+        const poll = setInterval(()=>{
+            // Use most recent position
+            const { x, y } = pos;
+            const hex = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ColorUnderCursorLogger$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["resolveEffectiveBackgroundAtPoint"])(x, y);
+            if (hex) setIsLightBg(isCloserToWhite(hex));
+        }, 250);
         // Attach hover listeners to elements that should trigger the "View" pill
         const targets = Array.from(document.querySelectorAll('[data-cursor-view]'));
         const enter = ()=>setMode("view");
@@ -515,16 +570,22 @@ function CustomCursor() {
         });
         return ()=>{
             window.removeEventListener("mousemove", onMove);
+            window.removeEventListener("mousedown", onMouseDown);
+            window.removeEventListener("mouseup", onMouseUp);
             if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+            clearInterval(poll);
             targets.forEach((t)=>{
                 t.removeEventListener("mouseenter", enter);
                 t.removeEventListener("mouseleave", leave);
             });
         };
     }, [
-        pathname
+        pathname,
+        pos,
+        isMobile
     ]);
     const size = 16; // base dot side length (we'll keep it a rounded square)
+    const clickedSize = 22; // size when clicked
     const radius = size / 2;
     const isView = mode === "view";
     // Use green on light backgrounds, tan on dark backgrounds for contrast when in dot mode
@@ -534,6 +595,11 @@ function CustomCursor() {
     const pillWidth = 70;
     const pillHeight = 40;
     const duration = 500; // ms
+    const currentDotSize = isClicked && !isView ? clickedSize : size;
+    // Don't render cursor on mobile devices
+    if (isMobile) {
+        return null;
+    }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         "aria-hidden": true,
         style: {
@@ -542,8 +608,8 @@ function CustomCursor() {
             top: `${pos.y}px`,
             // Center the element on the pointer so size changes expand evenly around the cursor
             transform: "translate(-50%, -50%)",
-            width: isView ? `${pillWidth}px` : `${size}px`,
-            height: isView ? `${pillHeight}px` : `${size}px`,
+            width: isView ? `${pillWidth}px` : `${currentDotSize}px`,
+            height: isView ? `${pillHeight}px` : `${currentDotSize}px`,
             // A square with fully rounded corners looks like a circle at small size
             borderRadius: "9999px",
             background: isView ? pillBg : dotFill,
@@ -566,18 +632,19 @@ function CustomCursor() {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
             style: {
                 opacity: isView ? 1 : 0,
-                transition: `opacity ${Math.max(200, duration - 200)}ms ease ${isView ? 200 : 0}ms`,
-                willChange: "opacity"
+                transform: isView ? "scale(1)" : "scale(0.5)",
+                transition: `opacity 200ms ease ${isView ? 200 : 0}ms, transform ${Math.max(200, duration - 200)}ms ease 0ms`,
+                willChange: "opacity, transform"
             },
             children: "View"
         }, void 0, false, {
             fileName: "[project]/src/components/CustomCursor.tsx",
-            lineNumber: 129,
+            lineNumber: 168,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/CustomCursor.tsx",
-        lineNumber: 99,
+        lineNumber: 138,
         columnNumber: 5
     }, this);
 }

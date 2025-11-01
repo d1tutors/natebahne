@@ -41,6 +41,19 @@ body {
   cursor: none !important;
 }
 
+/* Ensure cursor stays hidden on navbar and all its children */
+nav {
+  cursor: none !important;
+}
+nav * {
+  cursor: none !important;
+}
+
+/* Ensure cursor stays hidden on all clickable elements */
+a, button {
+  cursor: none !important;
+}
+
 /* Simple page fade-in utility */
 @keyframes pageFadeIn {
   from { opacity: 0; transform: translateY(6px); }

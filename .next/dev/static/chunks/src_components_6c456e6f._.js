@@ -207,15 +207,78 @@ __turbopack_context__.s([
     ()=>ScrollToTop
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var _s = __turbopack_context__.k.signature();
 "use client";
 ;
+;
 function ScrollToTop() {
     _s();
+    const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
+    // Force scroll to top with multiple attempts to ensure it works
+    // Also triggers scroll events so components that listen to scroll will update
+    const forceScrollToTop = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useCallback"])({
+        "ScrollToTop.useCallback[forceScrollToTop]": ()=>{
+            if (("TURBOPACK compile-time value", "object") === "undefined" || typeof document === "undefined") return;
+            // Use multiple methods to ensure scroll happens AND trigger scroll events
+            const scroll = {
+                "ScrollToTop.useCallback[forceScrollToTop].scroll": ()=>{
+                    window.scrollTo({
+                        top: 0,
+                        left: 0,
+                        behavior: "auto"
+                    });
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                    // CRITICAL: Trigger a scroll event so components that listen to scroll updates will re-render
+                    // This is needed because components read scroll position on mount, then we scroll,
+                    // but they don't know to re-check unless we fire the event
+                    const scrollEvent = new Event("scroll", {
+                        bubbles: true
+                    });
+                    window.dispatchEvent(scrollEvent);
+                    document.dispatchEvent(scrollEvent);
+                }
+            }["ScrollToTop.useCallback[forceScrollToTop].scroll"];
+            // Immediate attempt
+            scroll();
+            // Second attempt after browser paints
+            requestAnimationFrame({
+                "ScrollToTop.useCallback[forceScrollToTop]": ()=>{
+                    scroll();
+                    // Third attempt after a short delay to catch any late updates
+                    setTimeout({
+                        "ScrollToTop.useCallback[forceScrollToTop]": ()=>{
+                            scroll();
+                            // Fourth attempt after components have measured (for complex layouts)
+                            requestAnimationFrame({
+                                "ScrollToTop.useCallback[forceScrollToTop]": ()=>{
+                                    scroll();
+                                    // Final attempt after a longer delay for components that measure on mount
+                                    setTimeout({
+                                        "ScrollToTop.useCallback[forceScrollToTop]": ()=>{
+                                            scroll();
+                                        }
+                                    }["ScrollToTop.useCallback[forceScrollToTop]"], 100);
+                                    // One more attempt after all async operations
+                                    setTimeout({
+                                        "ScrollToTop.useCallback[forceScrollToTop]": ()=>{
+                                            scroll();
+                                        }
+                                    }["ScrollToTop.useCallback[forceScrollToTop]"], 200);
+                                }
+                            }["ScrollToTop.useCallback[forceScrollToTop]"]);
+                        }
+                    }["ScrollToTop.useCallback[forceScrollToTop]"], 50);
+                }
+            }["ScrollToTop.useCallback[forceScrollToTop]"]);
+        }
+    }["ScrollToTop.useCallback[forceScrollToTop]"], []);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "ScrollToTop.useEffect": ()=>{
             if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
             ;
+            // Disable browser scroll restoration
             if ("scrollRestoration" in window.history) {
                 window.history.scrollRestoration = "manual";
             }
@@ -224,23 +287,65 @@ function ScrollToTop() {
                     window.scrollTo(0, 0);
                 }
             }["ScrollToTop.useEffect.handleBeforeUnload"];
+            // Handle pages loaded from back/forward cache
+            const handlePageShow = {
+                "ScrollToTop.useEffect.handlePageShow": (e)=>{
+                    // If page was loaded from bfcache, force scroll to top
+                    if (e.persisted) {
+                        forceScrollToTop();
+                    }
+                }
+            }["ScrollToTop.useEffect.handlePageShow"];
             window.addEventListener("beforeunload", handleBeforeUnload);
-            // Ensure at mount we are at the very top
-            window.scrollTo({
-                top: 0,
-                left: 0,
-                behavior: "auto"
-            });
+            window.addEventListener("pageshow", handlePageShow);
+            // Scroll to top on initial mount
+            forceScrollToTop();
             return ({
                 "ScrollToTop.useEffect": ()=>{
                     window.removeEventListener("beforeunload", handleBeforeUnload);
+                    window.removeEventListener("pageshow", handlePageShow);
                 }
             })["ScrollToTop.useEffect"];
         }
-    }["ScrollToTop.useEffect"], []);
+    }["ScrollToTop.useEffect"], [
+        forceScrollToTop
+    ]);
+    // Scroll to top whenever the pathname changes (including back/forward navigation)
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "ScrollToTop.useEffect": ()=>{
+            if ("TURBOPACK compile-time falsy", 0) //TURBOPACK unreachable
+            ;
+            // Force scroll to top on navigation
+            forceScrollToTop();
+            // Also handle popstate events (back/forward button)
+            const handlePopState = {
+                "ScrollToTop.useEffect.handlePopState": ()=>{
+                    // Delay slightly to let the browser finish restoring
+                    setTimeout({
+                        "ScrollToTop.useEffect.handlePopState": ()=>{
+                            forceScrollToTop();
+                        }
+                    }["ScrollToTop.useEffect.handlePopState"], 0);
+                }
+            }["ScrollToTop.useEffect.handlePopState"];
+            window.addEventListener("popstate", handlePopState);
+            return ({
+                "ScrollToTop.useEffect": ()=>{
+                    window.removeEventListener("popstate", handlePopState);
+                }
+            })["ScrollToTop.useEffect"];
+        }
+    }["ScrollToTop.useEffect"], [
+        pathname,
+        forceScrollToTop
+    ]);
     return null;
 }
-_s(ScrollToTop, "OD7bBpZva5O2jO+Puf00hKivP7c=");
+_s(ScrollToTop, "M1hLPgg7p+WFr8D+UrDYVQ0BhVI=", false, function() {
+    return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
+    ];
+});
 _c = ScrollToTop;
 var _c;
 __turbopack_context__.k.register(_c, "ScrollToTop");
@@ -528,8 +633,21 @@ function CustomCursor() {
     });
     const [isLightBg, setIsLightBg] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [mode, setMode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("dot");
+    const [isClicked, setIsClicked] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [isMobile, setIsMobile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true); // Default to true to prevent flash on mobile
     const rafRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const needsEvalRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(false);
+    // Detect if device is mobile/touch-only
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "CustomCursor.useEffect": ()=>{
+            // Check if device supports touch and doesn't have a fine pointer (mouse)
+            const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+            const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
+            const hasCoarsePointer = window.matchMedia("(pointer: coarse)").matches;
+            // Only show cursor if device has fine pointer (mouse) and is not primarily touch
+            setIsMobile(hasCoarsePointer || hasTouch && !hasFinePointer);
+        }
+    }["CustomCursor.useEffect"], []);
     // On route change, reset back to dot mode to avoid being stuck in pill
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "CustomCursor.useEffect": ()=>{
@@ -541,14 +659,20 @@ function CustomCursor() {
     // On route change, immediately recompute background brightness at current pointer
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "CustomCursor.useEffect": ()=>{
+            if (isMobile) return;
             const hex = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ColorUnderCursorLogger$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["resolveEffectiveBackgroundAtPoint"])(pos.x, pos.y);
             if (hex) setIsLightBg(isCloserToWhite(hex));
         }
     }["CustomCursor.useEffect"], [
-        pathname
+        pathname,
+        isMobile,
+        pos.x,
+        pos.y
     ]);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "CustomCursor.useEffect": ()=>{
+            // Don't attach mouse listeners on mobile devices
+            if (isMobile) return;
             const onMove = {
                 "CustomCursor.useEffect.onMove": (e)=>{
                     setPos({
@@ -569,9 +693,26 @@ function CustomCursor() {
                     }
                 }
             }["CustomCursor.useEffect.onMove"];
+            const onMouseDown = {
+                "CustomCursor.useEffect.onMouseDown": ()=>setIsClicked(true)
+            }["CustomCursor.useEffect.onMouseDown"];
+            const onMouseUp = {
+                "CustomCursor.useEffect.onMouseUp": ()=>setIsClicked(false)
+            }["CustomCursor.useEffect.onMouseUp"];
             window.addEventListener("mousemove", onMove, {
                 passive: true
             });
+            window.addEventListener("mousedown", onMouseDown);
+            window.addEventListener("mouseup", onMouseUp);
+            // Poll background color under cursor every 250ms
+            const poll = setInterval({
+                "CustomCursor.useEffect.poll": ()=>{
+                    // Use most recent position
+                    const { x, y } = pos;
+                    const hex = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ColorUnderCursorLogger$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["resolveEffectiveBackgroundAtPoint"])(x, y);
+                    if (hex) setIsLightBg(isCloserToWhite(hex));
+                }
+            }["CustomCursor.useEffect.poll"], 250);
             // Attach hover listeners to elements that should trigger the "View" pill
             const targets = Array.from(document.querySelectorAll('[data-cursor-view]'));
             const enter = {
@@ -589,7 +730,10 @@ function CustomCursor() {
             return ({
                 "CustomCursor.useEffect": ()=>{
                     window.removeEventListener("mousemove", onMove);
+                    window.removeEventListener("mousedown", onMouseDown);
+                    window.removeEventListener("mouseup", onMouseUp);
                     if (rafRef.current != null) cancelAnimationFrame(rafRef.current);
+                    clearInterval(poll);
                     targets.forEach({
                         "CustomCursor.useEffect": (t)=>{
                             t.removeEventListener("mouseenter", enter);
@@ -600,9 +744,12 @@ function CustomCursor() {
             })["CustomCursor.useEffect"];
         }
     }["CustomCursor.useEffect"], [
-        pathname
+        pathname,
+        pos,
+        isMobile
     ]);
     const size = 16; // base dot side length (we'll keep it a rounded square)
+    const clickedSize = 22; // size when clicked
     const radius = size / 2;
     const isView = mode === "view";
     // Use green on light backgrounds, tan on dark backgrounds for contrast when in dot mode
@@ -612,6 +759,11 @@ function CustomCursor() {
     const pillWidth = 70;
     const pillHeight = 40;
     const duration = 500; // ms
+    const currentDotSize = isClicked && !isView ? clickedSize : size;
+    // Don't render cursor on mobile devices
+    if (isMobile) {
+        return null;
+    }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         "aria-hidden": true,
         style: {
@@ -620,8 +772,8 @@ function CustomCursor() {
             top: `${pos.y}px`,
             // Center the element on the pointer so size changes expand evenly around the cursor
             transform: "translate(-50%, -50%)",
-            width: isView ? `${pillWidth}px` : `${size}px`,
-            height: isView ? `${pillHeight}px` : `${size}px`,
+            width: isView ? `${pillWidth}px` : `${currentDotSize}px`,
+            height: isView ? `${pillHeight}px` : `${currentDotSize}px`,
             // A square with fully rounded corners looks like a circle at small size
             borderRadius: "9999px",
             background: isView ? pillBg : dotFill,
@@ -644,22 +796,23 @@ function CustomCursor() {
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
             style: {
                 opacity: isView ? 1 : 0,
-                transition: `opacity ${Math.max(200, duration - 200)}ms ease ${isView ? 200 : 0}ms`,
-                willChange: "opacity"
+                transform: isView ? "scale(1)" : "scale(0.5)",
+                transition: `opacity 200ms ease ${isView ? 200 : 0}ms, transform ${Math.max(200, duration - 200)}ms ease 0ms`,
+                willChange: "opacity, transform"
             },
             children: "View"
         }, void 0, false, {
             fileName: "[project]/src/components/CustomCursor.tsx",
-            lineNumber: 129,
+            lineNumber: 168,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/CustomCursor.tsx",
-        lineNumber: 99,
+        lineNumber: 138,
         columnNumber: 5
     }, this);
 }
-_s(CustomCursor, "RsPjybYh0QTOJ2wHnG7Y2MDy5eU=", false, function() {
+_s(CustomCursor, "JufW/r9+6MUPahitYtOQmmgL81Q=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
     ];
