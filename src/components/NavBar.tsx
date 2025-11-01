@@ -236,8 +236,12 @@ export default function NavBar() {
           }
           
           // Also check for CSS variable colors (like var(--dark-bg))
-          // Handle var(--dark-bg) which is #06402A
-          if (bg.includes('var(--dark-bg)')) {
+          // Handle var(--dark-bg) which uses --dark-green (returns computed hex value)
+          if (bg.includes('var(--dark-bg)') || bg.includes('var(--dark-green)')) {
+            if (typeof window !== 'undefined') {
+              const computed = getComputedStyle(document.documentElement).getPropertyValue('--dark-green').trim();
+              return computed || '#06402A'; // Fallback to hex if variable not found
+            }
             return '#06402A';
           }
         }
@@ -309,7 +313,7 @@ export default function NavBar() {
     };
   }, []); // Color detection uses fixed position, doesn't depend on navbar position
 
-  const textColor = isLightBg ? "#06402A" : "#F5F1E6";
+  const textColor = isLightBg ? "var(--dark-green)" : "var(--tan)";
 
   return (
     <motion.nav

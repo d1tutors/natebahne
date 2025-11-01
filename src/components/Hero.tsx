@@ -145,9 +145,10 @@ export default function Hero() {
                 ...(isReady && { opacity: textOpacity }),
                 filter: isReady ? textBlurPx : 'blur(0px)',
                 willChange: 'opacity',
-                pointerEvents: 'none'
+                pointerEvents: 'none',
+                color: 'var(--tan)'
               }}
-              className="absolute inset-0 z-20 flex items-center justify-center text-center text-[#F5F1E6]"
+              className="absolute inset-0 z-20 flex items-center justify-center text-center"
             >
               <div style={{ width: textLayoutWidth ?? 'auto', maxWidth: '100%' }}>
                 <h1 className="text-6xl md:text-7xl lg:text-8xl font-extrabold">Hey, I’m Nate.</h1>
@@ -158,23 +159,15 @@ export default function Hero() {
             {/* Bottom edge gradient (solid bottom ~20% -> fades quickly to transparent) */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-x-0 bottom-0 z-10"
-              style={{
-                height: "30%",
-                background:
-                  "linear-gradient(180deg, rgba(6, 64, 42, 0) 0%, rgba(6, 64, 42, 0.35) 25%, rgba(6, 64, 42, 0.7) 60%, rgba(6, 64, 42, 1) 80%, rgba(6, 64, 42, 1) 100%)",
-              }}
+              className="pointer-events-none absolute inset-x-0 bottom-0 z-10 hero-gradient-bottom"
+              style={{ height: "30%" }}
             />
 
             {/* Top edge gradient (solid top ~20% -> fades quickly to transparent) */}
             <div
               aria-hidden
-              className="pointer-events-none absolute inset-x-0 top-0 z-10"
-              style={{
-                height: "30%",
-                background:
-                  "linear-gradient(180deg, rgba(6, 64, 42, 1) 0%, rgba(6, 64, 42, 1) 20%, rgba(6, 64, 42, 0.7) 40%, rgba(6, 64, 42, 0.35) 65%, rgba(6, 64, 42, 0) 100%)",
-              }}
+              className="pointer-events-none absolute inset-x-0 top-0 z-10 hero-gradient-top"
+              style={{ height: "30%" }}
             />
 
             {/* Masked scrolling content (Blank section + Section Two) */}

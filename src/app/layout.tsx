@@ -29,6 +29,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
+    // Note: CSS variables don't work in meta tags, so we use the hex value
+    // This value should match --tan in globals.css
     { media: "(prefers-color-scheme: light)", color: "#F5F1E6" },
     { media: "(prefers-color-scheme: dark)", color: "#F5F1E6" },
   ],
@@ -58,12 +60,38 @@ export default function RootLayout({
                   window.scrollTo(0, 0);
                   if (document.documentElement) {
                     document.documentElement.scrollTop = 0;
-                    document.documentElement.style.background = '#F5F1E6';
+                    document.documentElement.style.background = 'var(--tan)';
                   }
                   if (document.body) document.body.scrollTop = 0;
                 }
               })();
             `,
+          }}
+        />
+        <Script
+          id="theme-css-vars-rgb"
+          strategy="beforeInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                function setRgbVars(hexVar, rVar, gVar, bVar) {
+                  var hex = getComputedStyle(document.documentElement).getPropertyValue(hexVar).trim();
+                  if (!hex) return;
+                  if (hex[0] === '#') hex = hex.slice(1);
+                  if (hex.length === 3) {
+                    hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+                  }
+                  var r = parseInt(hex.slice(0,2),16);
+                  var g = parseInt(hex.slice(2,4),16);
+                  var b = parseInt(hex.slice(4,6),16);
+                  document.documentElement.style.setProperty(rVar, r);
+                  document.documentElement.style.setProperty(gVar, g);
+                  document.documentElement.style.setProperty(bVar, b);
+                }
+                setRgbVars('--primary-main', '--primary-main-r', '--primary-main-g', '--primary-main-b');
+                setRgbVars('--primary-bg', '--primary-bg-r', '--primary-bg-g', '--primary-bg-b');
+              })();
+            `
           }}
         />
         <ScrollToTop />

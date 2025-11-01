@@ -89,7 +89,7 @@ export default function AppLoader() {
   if (!visible) return null;
 
   return (
-    <div className="fixed inset-0 z-[60]" style={{ background: "#F5F1E6" }}>
+    <div className="fixed inset-0 z-[60]" style={{ background: "var(--tan)" }}>
       <motion.div
         animate={controls}
         initial={{

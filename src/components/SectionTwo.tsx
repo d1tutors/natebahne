@@ -16,7 +16,7 @@ export default function SectionTwo() {
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.02, 0.98, 1], [0, 1, 1, 0]);
 
   return (
-    <div ref={ref} className="text-[#F5F1E6] relative overflow-hidden">
+    <div ref={ref} className="relative overflow-hidden" style={{ color: 'var(--tan)' }}>
       {/* Content */}
       <div className="relative z-0 mx-auto max-w-[96vw] px-4 md:px-6 lg:px-8 py-24 md:py-36">
         {/* Section 1 */}

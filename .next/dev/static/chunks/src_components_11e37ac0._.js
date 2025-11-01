@@ -136,7 +136,7 @@ function AppLoader() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "fixed inset-0 z-[60]",
         style: {
-            background: "#F5F1E6"
+            background: "var(--tan)"
         },
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
             animate: controls,
@@ -824,10 +824,10 @@ function CustomCursor() {
     const radius = size / 2;
     const isView = mode === "view" || mode === "contact";
     // Use green on light backgrounds, tan on dark backgrounds for contrast when in dot mode
-    const dotFill = isLightBg ? "#06402A" : "#F5F1E6";
+    const dotFill = isLightBg ? "var(--dark-green)" : "var(--tan)";
     // Pill colors match dot colors: if dot is green (light bg), pill is green with tan text; if dot is tan (dark bg), pill is tan with green text
-    const pillBg = isLightBg ? "#06402A" : "#F5F1E6";
-    const pillTextColor = isLightBg ? "#F5F1E6" : "#06402A";
+    const pillBg = isLightBg ? "var(--dark-green)" : "var(--tan)";
+    const pillTextColor = isLightBg ? "var(--tan)" : "var(--dark-green)";
     const basePillWidth = mode === "contact" ? 95 : 70; // Width for " Contact " (with spaces) or "View"
     const basePillHeight = 40;
     // When clicked, pill grows by ~15% similar to dot growth
@@ -1184,9 +1184,14 @@ function NavBar() {
                                 }
                             }
                             // Also check for CSS variable colors (like var(--dark-bg))
-                            // Handle var(--dark-bg) which is #06402A
-                            if (bg.includes('var(--dark-bg)')) {
-                                return '#06402A';
+                            // Handle var(--dark-bg) which uses --dark-green (returns computed hex value)
+                            if (bg.includes('var(--dark-bg)') || bg.includes('var(--dark-green)')) {
+                                if ("TURBOPACK compile-time truthy", 1) {
+                                    const computed = getComputedStyle(document.documentElement).getPropertyValue('--dark-green').trim();
+                                    return computed || '#06402A'; // Fallback to hex if variable not found
+                                }
+                                //TURBOPACK unreachable
+                                ;
                             }
                         }
                     }
@@ -1269,7 +1274,7 @@ function NavBar() {
             })["NavBar.useEffect"];
         }
     }["NavBar.useEffect"], []); // Color detection uses fixed position, doesn't depend on navbar position
-    const textColor = isLightBg ? "#06402A" : "#F5F1E6";
+    const textColor = isLightBg ? "var(--dark-green)" : "var(--tan)";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].nav, {
         ref: navRef,
         initial: {
@@ -1299,7 +1304,7 @@ function NavBar() {
                     children: "Nate Bahne"
                 }, void 0, false, {
                     fileName: "[project]/src/components/NavBar.tsx",
-                    lineNumber: 329,
+                    lineNumber: 333,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1317,7 +1322,7 @@ function NavBar() {
                             children: "My Projects"
                         }, void 0, false, {
                             fileName: "[project]/src/components/NavBar.tsx",
-                            lineNumber: 345,
+                            lineNumber: 349,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1332,24 +1337,24 @@ function NavBar() {
                             children: "Cool Stuff"
                         }, void 0, false, {
                             fileName: "[project]/src/components/NavBar.tsx",
-                            lineNumber: 357,
+                            lineNumber: 361,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/NavBar.tsx",
-                    lineNumber: 344,
+                    lineNumber: 348,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/NavBar.tsx",
-            lineNumber: 327,
+            lineNumber: 331,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/NavBar.tsx",
-        lineNumber: 315,
+        lineNumber: 319,
         columnNumber: 5
     }, this);
 }

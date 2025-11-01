@@ -178,10 +178,10 @@ export default function CustomCursor() {
   const radius = size / 2;
   const isView = mode === "view" || mode === "contact";
   // Use green on light backgrounds, tan on dark backgrounds for contrast when in dot mode
-  const dotFill = isLightBg ? "#06402A" : "#F5F1E6";
+  const dotFill = isLightBg ? "var(--dark-green)" : "var(--tan)";
   // Pill colors match dot colors: if dot is green (light bg), pill is green with tan text; if dot is tan (dark bg), pill is tan with green text
-  const pillBg = isLightBg ? "#06402A" : "#F5F1E6";
-  const pillTextColor = isLightBg ? "#F5F1E6" : "#06402A";
+  const pillBg = isLightBg ? "var(--dark-green)" : "var(--tan)";
+  const pillTextColor = isLightBg ? "var(--tan)" : "var(--dark-green)";
   const basePillWidth = mode === "contact" ? 95 : 70; // Width for " Contact " (with spaces) or "View"
   const basePillHeight = 40;
   // When clicked, pill grows by ~15% similar to dot growth
